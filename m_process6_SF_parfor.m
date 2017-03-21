@@ -141,7 +141,9 @@ cur_car_pos = zeros(1,has_routes_cnt);
 num_cars =length(has_routes_index);
 car=zeros(num_cars,5);
 for j = min_time:max_time
-    
+    if mod(j,10000)==0
+       j 
+    end
     
 %     for k=1:num_cars%length(has_routes_index)
 %         maps = routes{has_routes_index(k)};

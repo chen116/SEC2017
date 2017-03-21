@@ -212,7 +212,7 @@ for j = min_time:max_time
                     pre_coor = [car(k,1) car(k,2)];
                     speed = pdist([coor; pre_coor],'euclidean')/(j-car(k,3));
                     going_to = 0;                                                            
-                    if (sum(pre_coor-[lat lon])~=0)
+                    if (pre_coor(1)-coor(1)~=0 && pre_coor(2)-coor(2)~=0 )
                             % check if prediction is correct:
                             if(car(k,5)>0)   
 %                                 base_dis = 99999;

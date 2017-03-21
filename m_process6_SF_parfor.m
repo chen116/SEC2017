@@ -138,7 +138,7 @@ out_ma = in_ma;
 
 cur_car_pos = zeros(1,has_routes_cnt);
 
-num_cars =1% length(has_routes_index);
+num_cars =length(has_routes_index);
 car=zeros(num_cars,5);
 for j = min_time:max_time
     
@@ -367,7 +367,7 @@ hold off
 
 toc
 % saveas(h,'figure','png');
-savefig('out.fig')
+savefig('sf_535cars.fig')
 %openfig('newout.fig','new','visible')
 correct_pred
 total_pred 

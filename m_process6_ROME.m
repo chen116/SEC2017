@@ -138,13 +138,13 @@ clrs=distinguishable_colors(1000);%has_routes_cnt);
 
 cur_car_pos = zeros(1,has_routes_cnt);
 
-num_cars = 1%length(has_routes_index);
+num_cars = length(has_routes_index);
 car = zeros(k,5);
 
 for j = min_time:max_time  
-%     if mod(j,10000)==0
-%         j
-%     end
+    if mod(j,10000)==0
+        j
+    end
      for  k=1:num_cars%length(has_routes_index)
          maps = routes{has_routes_index(k)};
         % maps(:,2) = (maps(:,2)-bl_lon).*lon_scale;
@@ -184,15 +184,19 @@ for j = min_time:max_time
                     if (sum(pre_coor-[lat lon])~=0)
                             % check if prediction is correct:
                             if(car(k,5)>0)   
-                                base_dis = 99999;
-                                for kkk = 1:num_nodes
-                                    dis =  pdist([coor;centers(kkk,:)],'euclidean') ;
-                                    if (dis < base_dis)
-                                        base_dis = dis;
-                                        im_at = kkk;
-                                    end
-                                end 
-
+%                                 base_dis = 99999;
+%                                 for kkk = 1:num_nodes
+%                                     dis =  pdist([coor;centers(kkk,:)],'euclidean') ;
+%                                     if (dis < base_dis)
+%                                         base_dis = dis;
+%                                         im_at = kkk;
+%                                     end
+%                                 end 
+                                                dis = zeros(num_nodes,1);
+                                                for kkk = 1:num_nodes
+                                                        dis(kkk) =   pdist([coor;centers(kkk,:)],'euclidean') ;
+                                                end
+                                                [v , im_at] = min(dis);
                                 if(im_at ==car(k,5) )
                                    correct_pred = correct_pred + 1; 
                                 end
@@ -237,18 +241,32 @@ for j = min_time:max_time
                                                 %x= coor(2)+(coor(2)-pre_coor(2));% heading_toward(2)-center(2);
                                                 %y =coor(1)+(coor(1)-pre_coor(1));% heading_toward(1)-center(1);
                                                 new_coor = coor*2-pre_coor;
-                                                base_dis = 99999;
+%                                                 base_dis = 99999;
+%                                                 for kkk = 1:num_nodes
+%                                                    % if (kkk~=kk)
+%                                                         dis =  pdist([new_coor;centers(kkk,:)],'euclidean') ;
+%                                                         if (dis < base_dis   )
+%                                                             base_dis = dis;
+%                                                             going_to = kkk;
+% 
+%                                                         end
+%                                                     %end
+% 
+%                                                 end
+                                                
+                                                dis = zeros(num_nodes,1);
                                                 for kkk = 1:num_nodes
                                                    % if (kkk~=kk)
-                                                        dis =  pdist([new_coor;centers(kkk,:)],'euclidean') ;
-                                                        if (dis < base_dis   )
-                                                            base_dis = dis;
-                                                            going_to = kkk;
-
-                                                        end
+                                                        dis(kkk) =  pdist([new_coor;centers(kkk,:)],'euclidean') ;
+%                                                         if (dis < base_dis   )
+%                                                             base_dis = dis;
+%                                                             going_to = kkk;
+% 
+%                                                         end
                                                     %end
 
                                                 end
+                                                [v , going_to] = min(dis);
                                                 if(~(going_to==4 || kk==4))
                                                     going_to = 0;
                                                     
@@ -329,7 +347,7 @@ hold off
 toc
 
 
-
+savefig('rome_313cars.fig')
 
 correct_pred
 total_pred 

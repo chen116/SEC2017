@@ -11,7 +11,7 @@ tic
 format long
 cntt= 1
 
-profile on
+%profile on
 % 1km square
 tl_lon = -122.443;
 bl_lat = 37.775;
@@ -61,7 +61,7 @@ s_lon = t_dist/(tr_lon -tl_lon );
 
 
 
-h = figure;set(h, 'Visible', 'off');
+h = figure;%set(h, 'Visible', 'off');
 % 
 r=0.5;
 h = sqrt(3)/2;
@@ -111,7 +111,6 @@ for k=1:cnt
     end
 
 end
-clrs=distinguishable_colors(1000);%has_routes_cnt);
 
 min_time=1211036344;
 max_time=1213083384;
@@ -138,10 +137,12 @@ out_ma = in_ma;
 
 cur_car_pos = zeros(1,has_routes_cnt);
 
-num_cars =1% length(has_routes_index);
+num_cars =30%length(has_routes_index);
 car=zeros(num_cars,5);
 for j = min_time:max_time
-    
+    if mod(j,10000)==0
+       j 
+    end
     
 %     for k=1:num_cars%length(has_routes_index)
 %         maps = routes{has_routes_index(k)};
@@ -195,11 +196,11 @@ for j = min_time:max_time
             lon = (maps(index,2)-bl_lon).*lon_scale;
             lat = (maps(index,1)-bl_lat).*lat_scale;
             coor = [lat lon];
-% % 
-            del_row = true(1,size(routes{has_routes_index(k)},1));
-            del_row(index)=false;
-            routes{has_routes_index(k)}=routes{has_routes_index(k)}(del_row,:);
-            clear('routes{has_routes_index(k)}');
+% % % 
+%             del_row = true(1,size(routes{has_routes_index(k)},1));
+%             del_row(index)=false;
+%             routes{has_routes_index(k)}=routes{has_routes_index(k)}(del_row,:);
+%             clear('routes{has_routes_index(k)}');
             
 
 
@@ -210,7 +211,7 @@ for j = min_time:max_time
                     pre_coor = [car(k,1) car(k,2)];
                     speed = pdist([coor; pre_coor],'euclidean')/(j-car(k,3));
                     going_to = 0;                                                            
-                    if (sum(pre_coor-[lat lon])~=0)
+                    if (pre_coor(1)-coor(1)~=0 && pre_coor(2)-coor(2)~=0 )
                             % check if prediction is correct:
                             if(car(k,5)>0)   
 %                                 base_dis = 99999;
@@ -270,7 +271,7 @@ for j = min_time:max_time
                                                 %x= coor(2)+(coor(2)-pre_coor(2));% heading_toward(2)-center(2);
                                                 %y =coor(1)+(coor(1)-pre_coor(1));% heading_toward(1)-center(1);
                                                 new_coor = coor*2-pre_coor;
-                                                base_dis = 99999;
+                                             
                                                 dis = zeros(num_nodes,1);
                                                 for kkk = 1:num_nodes
                                                    % if (kkk~=kk)
@@ -366,13 +367,13 @@ hold off
 
 
 toc
-saveas(h,'figure','png');
-saveas(h,'newout','fig')
+% saveas(h,'figure','png');
+savefig('sf_535cars.fig')
 %openfig('newout.fig','new','visible')
 correct_pred
 total_pred 
 suc_rate = correct_pred/total_pred 
 
-profile viewer
+%profile viewer
 %min time 1211048366
 %max time 1213082663

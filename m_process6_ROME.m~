@@ -134,13 +134,12 @@ for k=1:cnt
     end
 
 end
-
+clrs=distinguishable_colors(has_routes_cnt);
 
 cur_car_pos = zeros(1,has_routes_cnt);
 
 num_cars = 10;%length(has_routes_index);
-clrs=distinguishable_colors(num_cars);
-car = zeros(num_cars,5);
+car = zeros(k,5);
 
 for j = min_time:max_time  
     if mod(j,10000)==0
@@ -200,13 +199,10 @@ for j = min_time:max_time
                                                 [v , im_at] = min(dis);
                                 if(im_at ==car(k,5) )
                                    correct_pred = correct_pred + 1; 
-                                    plot([coor(2) pre_coor(2)],[ coor(1) pre_coor(1)],'-o','Color',clrs(1,:),'LineWidth',3)
-                                else
-                                    plot([coor(2) pre_coor(2)],[ coor(1) pre_coor(1)],'-o','Color',clrs(2,:),'LineWidth',3)
                                 end
                                 total_pred = total_pred +1;
 
-                                
+                                plot([coor(2) pre_coor(2)],[ coor(1) pre_coor(1)],'-o','Color',clrs(k,:),'LineWidth',3)
                                 hold on
                                      
                            end
@@ -244,8 +240,7 @@ for j = min_time:max_time
                                                 %heading_toward = (coor-pre_coor)./(j-car(k,3)).*time_slot + coor; %itersecs(iter,:);
                                                 %x= coor(2)+(coor(2)-pre_coor(2));% heading_toward(2)-center(2);
                                                 %y =coor(1)+(coor(1)-pre_coor(1));% heading_toward(1)-center(1);
-                                                new_coor = (coor-pre_coor)./(j-car(k,3)).*time_slot+coor;
-                                                %new_coor = coor*2-pre_coor;
+                                                new_coor = coor*2-pre_coor;
 %                                                 base_dis = 99999;
 %                                                 for kkk = 1:num_nodes
 %                                                    % if (kkk~=kk)
@@ -278,9 +273,9 @@ for j = min_time:max_time
                                                 else
 
                                                  
-                                                    plot([new_coor(2) coor(2)  ],[new_coor(1) coor(1) ],'-d','Color',clrs(1,:),'MarkerSize',5)
+                                                    plot([new_coor(2) coor(2)  ],[new_coor(1) coor(1) ],'-d','Color',clrs(k,:),'MarkerSize',5)
                                                     hold on                                                    
-                                                    plot([coor(2) pre_coor(2)],[coor(1) pre_coor(1)],'-*','Color',clrs(1,:))
+                                                    plot([coor(2) pre_coor(2)],[coor(1) pre_coor(1)],'-*','Color',clrs(k,:))
                                                     hold on
 %                                                     plot([new_coor(2) heading_toward(2) ],[new_coor(1) heading_toward(1) ],'-d','Color',clrs(k,:),'MarkerSize',5)
 %                                                     hold on                                                    

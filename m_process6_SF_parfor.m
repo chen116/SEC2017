@@ -13,6 +13,13 @@ cntt= 1
 
 %profile on
 % 1km square
+
+% 37.7638,-122.4165
+% 37.7962,-122.4165
+% 37.7638,-122.4565
+% 37.7962,-122.4565
+
+
 tl_lon = -122.443;
 bl_lat = 37.775;
 
@@ -111,7 +118,6 @@ for k=1:cnt
     end
 
 end
-clrs=distinguishable_colors(1000);%has_routes_cnt);
 
 min_time=1211036344;
 max_time=1213083384;
@@ -138,8 +144,10 @@ out_ma = in_ma;
 
 cur_car_pos = zeros(1,has_routes_cnt);
 
-num_cars =length(has_routes_index);
+num_cars =30%length(has_routes_index);
 car=zeros(num_cars,5);
+clrs=distinguishable_colors(num_cars);
+
 for j = min_time:max_time
     if mod(j,10000)==0
        j 
@@ -197,11 +205,11 @@ for j = min_time:max_time
             lon = (maps(index,2)-bl_lon).*lon_scale;
             lat = (maps(index,1)-bl_lat).*lat_scale;
             coor = [lat lon];
-% % 
-            del_row = true(1,size(routes{has_routes_index(k)},1));
-            del_row(index)=false;
-            routes{has_routes_index(k)}=routes{has_routes_index(k)}(del_row,:);
-            clear('routes{has_routes_index(k)}');
+% % % 
+%             del_row = true(1,size(routes{has_routes_index(k)},1));
+%             del_row(index)=false;
+%             routes{has_routes_index(k)}=routes{has_routes_index(k)}(del_row,:);
+%             clear('routes{has_routes_index(k)}');
             
 
 
